@@ -1,0 +1,58 @@
+# Documentaciòn de la Creaciòn de base de datos en Ubuntu
+
+### Instalamos PostgreSQL
+sudo apt-get install postgresql
+
+#### Creamos un usuario (con el mismo nombre del usuario de ubuntu)
+sudo -u postgres psql
+CREATE USER nombre_de_usuario WITH PASSWORD 'tu_contraseña';
+ALTER USER nombre_de_usuario CREATEDB;
+\q
+#### Este ultimo comando sale de la consola de psotgresql
+
+
+
+### Entramos a la carpeta del archivo DB_H_Clinica.sql
+cd DB-creation
+
+createdb -U nombre_de_usuario clinica
+
+sudo -u postgres psql
+\c clinica
+
+\i /home/matcraft/Documentos/clinic-history-app/DB-creation/DB_H_Clinica.sql
+
+clinica=# \i /home/matcraft/Documentos/clinic-history-app/DB-creation/DB_H_Clinica.sql 
+psql:/home/matcraft/Documentos/clinic-history-app/DB-creation/DB_H_Clinica.sql:2: ERROR:  database "clinica" already exists
+You are now connected to database "clinica" as user "postgres".
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+
+
+
+
+#### Verificamos que las tablas se hayan creado correctamente
+\d
+
+clinica=# \d
+                   List of relations
+ Schema |          Name          |   Type   |  Owner   
+--------+------------------------+----------+----------
+ public | cita                   | table    | postgres
+ public | cita_id_seq            | sequence | postgres
+ public | doctora                | table    | postgres
+ public | doctora_id_seq         | sequence | postgres
+ public | historiaclinica        | table    | postgres
+ public | historiaclinica_id_seq | sequence | postgres
+ public | paciente               | table    | postgres
+ public | paciente_id_seq        | sequence | postgres
+(8 rows)
+
+
