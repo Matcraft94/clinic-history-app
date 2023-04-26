@@ -1,0 +1,26 @@
+myapp/
+├── api/
+│   ├── __init__.py
+│   ├── authentication.py
+│   ├── doctor.py
+│   ├── patient.py
+│   ├── appointment.py
+│   └── ...
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── login.html
+│   ├── admin.html
+│   ├── patient.html
+│   ├── doctor.html
+│   └── ...
+├── static/
+│   ├── css/
+│   ├── js/
+│   ├── img/
+│   └── ...
+├── database.db
+├── config.py
+├── run.py
+├── requirements.txt
+└── README.md

@@ -1,61 +1,72 @@
-CREATE TABLE "Paciente" (
-  "id" int PRIMARY KEY,
-  "nombre" varchar,
-  "fecha_nacimiento" date,
-  "genero" varchar,
-  "direccion" varchar,
-  "doctora_id" int,
-  "correo_electronico" varchar,
-  "numero_telefono" varchar,
-  "fecha_ingreso" date,
-  "fecha_salida" date
+-- Crea la base de datos
+CREATE DATABASE clinica;
+
+-- Selecciona la base de datos
+\c clinica
+
+-- Crea la tabla Paciente
+CREATE TABLE Paciente (
+  id SERIAL PRIMARY KEY,
+  nombre VARCHAR,
+  fecha_nacimiento DATE,
+  genero VARCHAR,
+  direccion VARCHAR,
+  doctora_id INTEGER,
+  correo_electronico VARCHAR,
+  numero_telefono VARCHAR,
+  fecha_ingreso DATE,
+  fecha_salida DATE
 );
 
-CREATE TABLE "Doctora" (
-  "id" int PRIMARY KEY,
-  "nombre" varchar,
-  "especialidad" varchar,
-  "telefono" varchar,
-  "correo_electronico" varchar,
-  "licencia_medica" varchar,
-  "hora_inicio" time,
-  "hora_fin" time,
-  "foto" blob,
-  "fecha_inicio" date,
-  "fecha_termino" date,
-  "es_administradora" bool
+-- Crea la tabla Doctora
+CREATE TABLE Doctora (
+  id SERIAL PRIMARY KEY,
+  nombre VARCHAR,
+  especialidad VARCHAR,
+  telefono VARCHAR,
+  correo_electronico VARCHAR,
+  licencia_medica VARCHAR,
+  hora_inicio TIME,
+  hora_fin TIME,
+  foto BYTEA,
+  fecha_inicio DATE,
+  fecha_termino DATE,
+  es_administradora BOOLEAN
 );
 
-CREATE TABLE "HistoriaClinica" (
-  "id" int PRIMARY KEY,
-  "fecha" date,
-  "sintomas" varchar,
-  "diagnostico" varchar,
-  "tratamiento" varchar,
-  "paciente_id" int,
-  "doctora_id" int,
-  "notas" varchar,
-  "examenes_medicos" varchar,
-  "alergias" varchar,
-  "medicamentos" varchar,
-  "antecedentes_familiares" varchar
+-- Crea la tabla HistoriaClinica
+CREATE TABLE HistoriaClinica (
+  id SERIAL PRIMARY KEY,
+  fecha DATE,
+  sintomas VARCHAR,
+  diagnostico VARCHAR,
+  tratamiento VARCHAR,
+  paciente_id INTEGER,
+  doctora_id INTEGER,
+  notas VARCHAR,
+  examenes_medicos VARCHAR,
+  alergias VARCHAR,
+  medicamentos VARCHAR,
+  antecedentes_familiares VARCHAR
 );
 
-CREATE TABLE "Cita" (
-  "id" int PRIMARY KEY,
-  "fecha_hora" datetime,
-  "paciente_id" int,
-  "doctora_id" int,
-  "duracion_minutes" int,
-  "notas" varchar
+-- Crea la tabla Cita
+CREATE TABLE Cita (
+  id SERIAL PRIMARY KEY,
+  fecha_hora TIMESTAMP,
+  paciente_id INTEGER,
+  doctora_id INTEGER,
+  duracion_minutes INTEGER,
+  notas VARCHAR
 );
 
-ALTER TABLE "Paciente" ADD FOREIGN KEY ("doctora_id") REFERENCES "Doctora" ("id");
+-- Agrega las claves foráneas
+ALTER TABLE Paciente ADD CONSTRAINT fk_doctora_id FOREIGN KEY (doctora_id) REFERENCES Doctora (id);
 
-ALTER TABLE "HistoriaClinica" ADD FOREIGN KEY ("paciente_id") REFERENCES "Paciente" ("id");
+ALTER TABLE HistoriaClinica ADD CONSTRAINT fk_paciente_id FOREIGN KEY (paciente_id) REFERENCES Paciente (id);
 
-ALTER TABLE "HistoriaClinica" ADD FOREIGN KEY ("doctora_id") REFERENCES "Doctora" ("id");
+ALTER TABLE HistoriaClinica ADD CONSTRAINT fk_doctora_id FOREIGN KEY (doctora_id) REFERENCES Doctora (id);
 
-ALTER TABLE "Cita" ADD FOREIGN KEY ("paciente_id") REFERENCES "Paciente" ("id");
+ALTER TABLE Cita ADD CONSTRAINT fk_paciente_id FOREIGN KEY (paciente_id) REFERENCES Paciente (id);
 
-ALTER TABLE "Cita" ADD FOREIGN KEY ("doctora_id") REFERENCES "Doctora" ("id");
+ALTER TABLE Cita ADD CONSTRAINT fk_doctora_id FOREIGN KEY (doctora_id) REFERENCES Doctora (id);
